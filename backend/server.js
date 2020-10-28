@@ -2,6 +2,8 @@ import path from 'path'
 import express from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
+import enforce from'express-sslify'
+
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 import productRoutes from './routes/productsroute.js'
@@ -31,6 +33,7 @@ app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 )
 
+const enforce = require('express-sslify')
 
 // static files
 const __dirname = path.resolve()
