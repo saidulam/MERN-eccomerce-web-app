@@ -6,7 +6,6 @@ import Rating from '../components/Rating'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
-import { Helmet } from 'react-helmet'
 import {
   listProductDetails,
   createProductReview,

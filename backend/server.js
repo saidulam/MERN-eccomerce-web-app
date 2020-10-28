@@ -6,7 +6,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 import productRoutes from './routes/productsroute.js'
 import userRoutes from './routes/userRoutes.js'
-import orderRoutes from './routes/orderRoutes.js'
+import orderRoutes from './routes/OrderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 
 
