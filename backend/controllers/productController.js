@@ -157,6 +157,16 @@ const getTopProducts = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
+// @desc    Get ANDROID CATEGORIES
+// @route   GET /api/products/categories/androids
+// @access  Public
+const getAndroid = asyncHandler(async (req, res) => {
+  const products = await Product.find({"category": "Android"})
+
+  res.json(products)
+})
+
+
 export {
   getProducts,
   getProductById,
@@ -165,4 +175,5 @@ export {
   updateProduct,
   createProductReview,
   getTopProducts,
+  getAndroid
 }

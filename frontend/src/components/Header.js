@@ -32,6 +32,23 @@ const Header = () => {
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
+              <NavDropdown title='Categories' id='adminmenu'>
+                  <LinkContainer to='/categories/Andriods'>
+                    <NavDropdown.Item>Android phones</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/categories/IOS'>
+                    <NavDropdown.Item>IOS Phones</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/categories/laptops'>
+                    <NavDropdown.Item>Laptops</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/categories/accessories'>
+                    <NavDropdown.Item>Accessories</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/categories/electronics'>
+                    <NavDropdown.Item>Electronics</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>

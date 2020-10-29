@@ -7,7 +7,6 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import {login} from '../actions/userActions'
 
-
 const LoginScreen = ({location,history}) => {
         const  [email,setEmail] = useState('')
         const  [password,setPassword] = useState('')
@@ -29,6 +28,7 @@ const LoginScreen = ({location,history}) => {
             e.preventDefault()
             dispatch(login(email,password))
         }
+        
     return (
         <FormContainer>
         <h1>Sign In</h1>
@@ -59,7 +59,7 @@ const LoginScreen = ({location,history}) => {
             Sign In
           </Button>
         </Form>
-  
+       
         <Row className='py-3'>
           <Col>
             New Customer?{' '}

@@ -26,6 +26,7 @@ const ProfileScreen = ({ location, history }) => {
   const { success } = userUpdateProfile
 
   const orderListMy = useSelector((state) => state.orderListMy)
+  console.log(orderListMy)
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
   useEffect(() => {

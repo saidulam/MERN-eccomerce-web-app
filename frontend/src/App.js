@@ -18,6 +18,11 @@ import UserEditScreen from './screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
+import AndroidScreen from './screens/AndroidScreen'
+import IosScreen from './screens/IosScreen'
+import LaptopsScreen from './screens/LaptopsScreen'
+import AccessoriesScreen from './screens/AccessoriesScreen'
+import ElectronicsScreen from './screens/ElectronicsScreen'
 
 const App = () => {
   return (
@@ -28,6 +33,11 @@ const App = () => {
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/shipping' component={ShippingScreen} />
           <Route path='/payment' component={PaymentScreen} />
+          <Route path='/categories/Andriods' component={AndroidScreen} />
+          <Route path='/categories/IOS' component={IosScreen} />
+          <Route path='/categories/laptops' component={LaptopsScreen} />
+          <Route path='/categories/accessories' component={AccessoriesScreen} />
+          <Route path='/categories/electronics' component={ElectronicsScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />

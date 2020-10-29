@@ -21,6 +21,9 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
+  PRODUCT_ANDROID_REQUEST,
+  PRODUCT_ANDROID_SUCCESS,
+  PRODUCT_ANDROID_FAIL,
 } from '../constants/productConstants'
 
 export const listProducts = (keyword = '', pageNumber = '') => async (
@@ -32,7 +35,7 @@ export const listProducts = (keyword = '', pageNumber = '') => async (
     const { data } = await axios.get(
       `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
     )
-
+        console.log("data = ",data)
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
@@ -221,6 +224,27 @@ export const listTopProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_TOP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const listAndroids = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_ANDROID_REQUEST })
+
+    const { data } = await axios.get(`/api/products/categories/androids`)
+
+    dispatch({
+      type: PRODUCT_ANDROID_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_ANDROID_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
