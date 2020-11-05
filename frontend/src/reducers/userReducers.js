@@ -22,7 +22,25 @@ import { USER_DETAILS_FAIL,
          USER_REGISTER_SUCCESS,
          USER_UPDATE_PROFILE_FAIL,
          USER_UPDATE_PROFILE_REQUEST,
-         USER_UPDATE_PROFILE__SUCCESS} from "../constants/userConstants"
+         USER_UPDATE_PROFILE__SUCCESS,
+         USER_UPDATE_PROFILE_RESET,
+         USER_PASSWORD_RESET_FAIL,
+         USER_PASSWORD_RESET_SUCCESS,
+         USER_PASSWORD_RESET_REQUEST,
+         USER_PASSWORD_UPDATE_REQUEST,
+         USER_PASSWORD_UPDATE_FAIL,
+         USER_PASSWORD_UPDATE_SUCCESS,
+         USER_PASSWORD_NEW_REQUEST,
+         USER_PASSWORD_NEW_SUCCESS,
+         USER_PASSWORD_NEW_FAIL,
+         USER_PASSWORD_PAGE_FAIL,
+         USER_PASSWORD_PAGE_RESET,
+         USER_PASSWORD_NEW_RESET,
+         USER_PASSWORD_PAGE_SUCCESS,
+         USER_PASSWORD_PAGE_REQUEST,
+         USER_CONTACT_US_SUCCESS,
+         USER_CONTACT_US_REQUEST,
+         USER_CONTACT_US_FAIL} from "../constants/userConstants"
 
 export const userLoginReducer = (state = {}, action) => {
     switch (action.type) {
@@ -85,6 +103,8 @@ export const userLoginReducer = (state = {}, action) => {
         return { loading: false, success: true, userInfo: action.payload }
       case USER_UPDATE_PROFILE_FAIL:
         return { loading: false, error: action.payload }
+        case USER_UPDATE_PROFILE_RESET:
+          return {}
       default:
         return state
     }
@@ -130,6 +150,61 @@ export const userLoginReducer = (state = {}, action) => {
         return {
           user: {},
         }
+      default:
+        return state
+    }
+  }
+
+
+  export const userPasswordResetReducer = (state = {}, action) => {
+    switch (action.type) {
+      case USER_PASSWORD_RESET_REQUEST:
+        return { loading: true}
+      case USER_PASSWORD_RESET_SUCCESS:
+        return { loading: false, response:true }
+      case USER_PASSWORD_RESET_FAIL:
+        return { loading: false, error: action.payload }
+      default:
+        return state
+    }
+  }
+
+  export const userResetPasswordPageReducer= (state = {}, action) => {
+    switch (action.type) {
+      case USER_PASSWORD_PAGE_REQUEST:
+        return { loading: true}
+      case USER_PASSWORD_PAGE_SUCCESS:
+        return { loading: false, response: true, responseEmail:action.payload }
+      case USER_PASSWORD_PAGE_FAIL:
+        return { loading: false, error: action.payload }
+        case USER_PASSWORD_PAGE_RESET:
+          return {}
+      default:
+        return state
+    }
+  }
+
+  export const userNewPasswordUpdateReducer = (state = {}, action) => {
+    switch (action.type) {
+      case USER_PASSWORD_NEW_REQUEST:
+        return { loading: true}
+      case USER_PASSWORD_NEW_SUCCESS:
+        return { loading: false, success:true }
+      case USER_PASSWORD_NEW_FAIL:
+        return { loading: false, error: action.payload }
+      default:
+        return state
+    }
+  }
+
+  export const userContactUsReducer = (state = {}, action) => {
+    switch (action.type) {
+      case USER_CONTACT_US_REQUEST:
+        return { loading: true}
+      case USER_CONTACT_US_SUCCESS:
+        return { loading: false, success:true }
+      case USER_CONTACT_US_FAIL:
+        return { loading: false, error: action.payload }
       default:
         return state
     }

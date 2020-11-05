@@ -24,6 +24,18 @@ import {
   PRODUCT_ANDROID_REQUEST,
   PRODUCT_ANDROID_SUCCESS,
   PRODUCT_ANDROID_FAIL,
+  PRODUCT_IOS_REQUEST,
+  PRODUCT_IOS_SUCCESS,
+  PRODUCT_IOS_FAIL,
+  PRODUCT_LAPTOPS_FAIL,
+  PRODUCT_LAPTOPS_SUCCESS,
+  PRODUCT_LAPTOPS_REQUEST,
+  PRODUCT_ACCESSORIES_REQUEST,
+  PRODUCT_ACCESSORIES_SUCCESS,
+  PRODUCT_ACCESSORIES_FAIL,
+  PRODUCT_ELECTRONICS_REQUEST,
+  PRODUCT_ELECTRONICS_SUCCESS,
+  PRODUCT_ELECTRONICS_FAIL,
 } from '../constants/productConstants'
 
 export const listProducts = (keyword = '', pageNumber = '') => async (
@@ -35,7 +47,6 @@ export const listProducts = (keyword = '', pageNumber = '') => async (
     const { data } = await axios.get(
       `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
     )
-        console.log("data = ",data)
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
@@ -137,6 +148,7 @@ export const createProduct = () => async (dispatch, getState) => {
   }
 }
 
+
 export const updateProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -174,6 +186,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     })
   }
 }
+
 
 export const createProductReview = (productId, review) => async (
   dispatch,
@@ -245,6 +258,93 @@ export const listAndroids = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_ANDROID_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const listIos = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_IOS_REQUEST })
+
+    const { data } = await axios.get(`/api/products/categories/ios`)
+
+    dispatch({
+      type: PRODUCT_IOS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_IOS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const listLaptops = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_LAPTOPS_REQUEST })
+
+    const { data } = await axios.get(`/api/products/categories/laptops`)
+
+    dispatch({
+      type: PRODUCT_LAPTOPS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_LAPTOPS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const listAccessories = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_ACCESSORIES_REQUEST })
+
+    const { data } = await axios.get(`/api/products/categories/accessories`)
+
+    dispatch({
+      type: PRODUCT_ACCESSORIES_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_ACCESSORIES_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+
+
+
+export const listElectronics = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_ELECTRONICS_REQUEST })
+
+    const { data } = await axios.get(`/api/products/categories/electronics`)
+
+    dispatch({
+      type: PRODUCT_ELECTRONICS_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_ELECTRONICS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

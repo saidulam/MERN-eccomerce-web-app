@@ -8,15 +8,22 @@ import {
   updateProduct,
   createProductReview,
   getTopProducts,
-  getAndroid
+  getAndroid,
+  getIos,
+  getlaptops,
+  getElectronics,
+  getAccessories,
 } from '../controllers/productController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
 router.route('/').get(getProducts).post(protect, admin, createProduct)
 router.route('/:id/reviews').post(protect, createProductReview)
 router.get('/top', getTopProducts)
-// router.get('/categories/electronics', getElectronics)
+router.get('/categories/ios', getIos)
 router.get('/categories/androids', getAndroid)
+router.get('/categories/laptops', getlaptops)
+router.get('/categories/electronics', getElectronics)
+router.get('/categories/accessories', getAccessories)
 router
   .route('/:id')
   .get(getProductById)

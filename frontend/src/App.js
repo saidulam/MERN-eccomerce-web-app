@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Header from './components/Header'
+import Topheader from './components/Topheader.js'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
@@ -23,10 +24,18 @@ import IosScreen from './screens/IosScreen'
 import LaptopsScreen from './screens/LaptopsScreen'
 import AccessoriesScreen from './screens/AccessoriesScreen'
 import ElectronicsScreen from './screens/ElectronicsScreen'
+import ForgetPasswordScreen from './screens/ForgotPasswordScreen'
+import UpdatePasswordScreen from './screens/UpdatePasswordScreen'
+import AboutUsScreen from './screens/AboutUsScreen'
+import contactUsScreen from './screens/contactUsScreen'
+import RefundScreen from './screens/RefundPolicy.js'
+import DeliveryScreen from './screens/DeliverScreen.js'
+
 
 const App = () => {
   return (
     <Router>
+      <Topheader />
       <Header />
       <main className='py-3'>
         <Container>
@@ -40,7 +49,13 @@ const App = () => {
           <Route path='/categories/electronics' component={ElectronicsScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login' component={LoginScreen} />
+          <Route path='/about' component={AboutUsScreen} />
+          <Route path='/policy' component={RefundScreen} />
+          <Route path='/contact' component={contactUsScreen} />
+          <Route path='/delivery' component={DeliveryScreen} />
           <Route path='/register' component={RegisterScreen} />
+          <Route path='/reset' component={ForgetPasswordScreen} />
+          <Route path='/updatePassword/:id' component={UpdatePasswordScreen } />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
@@ -74,3 +89,10 @@ const App = () => {
 }
 
 export default App
+
+
+// TODO
+// category dropdown
+// facebook and google login
+// reset password
+// pagination for category

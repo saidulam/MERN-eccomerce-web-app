@@ -20,6 +20,18 @@ import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_LOG
     USER_UPDATE_FAIL,
     USER_UPDATE_SUCCESS,
     USER_UPDATE_REQUEST,
+    USER_PASSWORD_RESET_REQUEST,
+    USER_PASSWORD_RESET_SUCCESS,
+    USER_PASSWORD_RESET_FAIL,
+    USER_PASSWORD_NEW_REQUEST,
+    USER_PASSWORD_NEW_SUCCESS,
+    USER_PASSWORD_NEW_FAIL,
+    USER_PASSWORD_PAGE_FAIL,
+    USER_PASSWORD_PAGE_SUCCESS,
+    USER_PASSWORD_PAGE_REQUEST,
+    USER_CONTACT_US_REQUEST,
+    USER_CONTACT_US_SUCCESS,
+    USER_CONTACT_US_FAIL,
 } from "../constants/userConstants"
 import {ORDER_LIST_MY_RESET} from '../constants/orderConstants'
 
@@ -59,10 +71,14 @@ export const login = (email,password) => async (dispatch) =>{
 
 export const logout = () =>(dispatch) =>{
 localStorage.removeItem('userInfo')
+localStorage.removeItem('cartItems')
+localStorage.removeItem('shippingAddress')
+localStorage.removeItem('paymentMethod')
 dispatch({type:USER_LOGOUT})
 dispatch({type:USER_DETAILS_RESET})
 dispatch({type:ORDER_LIST_MY_RESET})
 dispatch({ type: USER_LIST_RESET })
+document.location.href = '/login'
 
 }
 
@@ -169,6 +185,11 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         type: USER_UPDATE_PROFILE__SUCCESS,
         payload: data,
       })
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+      })
+      localStorage.setItem('userInfo',JSON.stringify(data))
     } catch (error) {
       dispatch({
         type: USER_UPDATE_PROFILE_FAIL,
@@ -281,3 +302,121 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     }
   }
   
+
+
+  export const passwordReset = (email) => async (dispatch) =>{
+    try {
+        dispatch({
+            type:USER_PASSWORD_RESET_REQUEST
+        })
+
+        const config = {
+            headers:{
+                'Content-type' :'application/json'
+            }
+        }
+
+        const { data } = await axios.post('/api/users/reset',
+        {email},
+        config)
+    dispatch({
+        type: USER_PASSWORD_RESET_SUCCESS,
+        payload:data
+    })  
+  
+  } 
+        catch (error) {
+            dispatch({
+                type: USER_PASSWORD_RESET_FAIL,
+                payload:
+                  error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+              })
+        
+    }
+}
+
+export const userGetResetPageById  = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_PASSWORD_PAGE_REQUEST })
+
+    const { data } = await axios.get(`/api/users/reset/${id}`)
+
+    dispatch({
+      type: USER_PASSWORD_PAGE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_PASSWORD_PAGE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const updateUserNewPassword = (id,password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_PASSWORD_NEW_REQUEST,
+    })
+
+    
+    const config = {
+      headers:{
+          'Content-type' :'application/json'
+      }
+  }
+
+  const { data } = await axios.put(`/api/users/updated`,
+  {id,password},config)
+    dispatch({
+      type: USER_PASSWORD_NEW_SUCCESS,
+      payload: data,
+    })
+   } catch (error) {
+    dispatch({
+      type: USER_PASSWORD_NEW_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const contactUs = (name,email,comment) => async (dispatch) =>{
+  try {
+      dispatch({
+          type:USER_CONTACT_US_REQUEST
+      })
+
+      const config = {
+          headers:{
+              'Content-type' :'application/json'
+          }
+      }
+
+      const { data } = await axios.post('/api/users/contact',
+      {name,email,comment},
+      config)
+  dispatch({
+      type: USER_CONTACT_US_SUCCESS,
+      payload:data
+  })  
+
+} 
+      catch (error) {
+          dispatch({
+              type: USER_CONTACT_US_FAIL,
+              payload:
+                error.response && error.response.data.message
+                  ? error.response.data.message
+                  : error.message,
+            })
+      
+  }
+}

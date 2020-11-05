@@ -1,7 +1,8 @@
 import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
+import nodemailer from 'nodemailer'
+import crypto from 'crypto';
 import User from '../models/UserModel.js'
-import  OAuth2client  from "google-auth-library";
 
 
 
@@ -172,16 +173,168 @@ const getUserById = asyncHandler(async (req, res) => {
       throw new Error('User not found')
     }
   })
+  
+
+//@desc  reset user and get token
+//@routes  POST /api/users/reset
+//@acces  public
+const resetPassword = asyncHandler(async (req,res) =>{
+  const {email} = req.body
+  let user =await User.findOne({email})
+    
+  if (email === '') {
+    res.status(400).send('email required');
+  }
+  console.error(email);
+  if (user === null) {
+    console.error('email not in database');
+    res.status(403).send('email not in db');
+  }else{
+    const token = user._id
+    console.log(token)
+    user.update({
+      Token: token,
+    });
+
+    let transporter = nodemailer.createTransport({
+      host: 'mail.privateemail.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+          user: "info@americanfarminvestr.com", // generated ethereal user
+          pass: "Derryukere1256"  // generated ethereal password
+      },
+      tls:{
+        rejectUnauthorized:false
+      }
+    });
+
+    let mailOptions = {
+      from: '"Tech Prime" <info@americanfarminvestr.com>', // sender address
+      to: `${email}`, // list of receivers
+      subject: 'Password reset link', // Subject line
+      text:
+            'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
+            + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
+            + `https://www.techprime.shop/updatePassword/${token}\n\n`
+            + 'If you did not request this, please ignore this email and your password will remain unchanged.\n', // plain text body
+      
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('there was an error: ', error);
+      } else {
+        console.log('Message sent: %s', info.messageId); 
+        res.status(200).json('recovery email sent');
+      } 
+      
+    });
+
+
+
+  }
+
+})
+
+ // @desc    Update user
+  // @route   PUT /api/users/:id
+  // @access  Private/Admin
+  const getUserByToken = asyncHandler(async (req, res) => {
+    const id = req.params.id
+    const user = await User.findById(id)  
+    if (user == null) {
+      console.error('password reset link is invalid or has expired');
+      res.status(403).json('password reset link is invalid or has expired');
+    } else {
+      res.json({
+        "email":user.email,
+        "message" : "password updated !!"
+      })
+    }
+  })
+   // @desc    Update user
+  // @route   PUT /api/users/:id
+  // @access  Private/Admin
+  const updateUserPassword = asyncHandler(async (req, res) => {
+    const {id} = req.body
+    const user = await User.findById(id) 
+    if (user) {
+      user.password = req.body.password 
+      const updatedUserPassword = await user.save()
+      res.json({
+        "message":"PasswordUpdated!!"
+      })
+    } else {
+      res.status(404)
+      throw new Error('User not found')
+    }
+  })
+
+ const contactPost= asyncHandler(async(req, res) => {
+    const output = `
+    <p>You have a new contact request</p>
+    <h3>Contact Details</h3>
+    <ul>  
+      <li>Name: ${req.body.name}</li>
+      <li>Email: ${req.body.email}</li>
+    </ul>
+    <h3>Message</h3>
+    <p>${req.body.comment}</p>
+  `;
+  console.log(output)
+   // create reusable transporter object using the default SMTP transport
+   let transporter = nodemailer.createTransport({
+    host: 'mail.privateemail.com',
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: "info@americanfarminvestr.com", // generated ethereal user
+      pass: "Derryukere1256"  // generated ethereal password
+    },
+    tls:{
+      rejectUnauthorized:false
+    }
+  });
+  
+  // setup email data with unicode symbols
+  let mailOptions = {
+    from: '"Tech Prime" <info@americanfarminvestr.com>', // sender address
+    to: 'mudiagaukere@gmail.com', // list of receivers
+    subject: 'New Contact Request', // Subject line
+    text: 'contact Request', // plain text body
+    html: output // html body
+  };
+  
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('there was an error: ', error);
+    } else {
+      console.log('Message sent: %s', info.messageId); 
+      res.status(200).json('contact message sent');
+    } 
+    
+  });
+  
+  
+})
+  
+    
+
+  
+   export {
+     authUser,
+     registerUser,
+     getUserProfile,
+     updateUserProfile,
+     getUsers,
+     deleteUser,
+     getUserById,
+     updateUser,
+     resetPassword,
+     getUserByToken,
+     updateUserPassword,
+     contactPost
+   }
 
 
   
-  export {
-    authUser,
-    registerUser,
-    getUserProfile,
-    updateUserProfile,
-    getUsers,
-    deleteUser,
-    getUserById,
-    updateUser,
-  }

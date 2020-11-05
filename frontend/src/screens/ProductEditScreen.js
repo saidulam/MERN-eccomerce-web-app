@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
+import Dropdown from '../components/GoogleLogin'
 import { listProductDetails, updateProduct } from '../actions/productActions'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 
@@ -170,7 +171,8 @@ const ProductEditScreen = ({ match, history }) => {
                 placeholder='Enter category'
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
+              >
+               </Form.Control>
             </Form.Group>
 
             <Form.Group controlId='description'>
@@ -182,7 +184,7 @@ const ProductEditScreen = ({ match, history }) => {
                 onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
-
+          <Dropdown />
             <Button type='submit' variant='primary'>
               Update
             </Button>

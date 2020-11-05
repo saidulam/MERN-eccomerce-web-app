@@ -26,6 +26,18 @@ import {
   PRODUCT_ANDROID_REQUEST,
   PRODUCT_ANDROID_SUCCESS,
   PRODUCT_ANDROID_FAIL,
+  PRODUCT_IOS_REQUEST,
+  PRODUCT_IOS_SUCCESS,
+  PRODUCT_IOS_FAIL,
+  PRODUCT_LAPTOPS_FAIL,
+  PRODUCT_LAPTOPS_SUCCESS,
+  PRODUCT_LAPTOPS_REQUEST,
+  PRODUCT_ACCESSORIES_REQUEST,
+  PRODUCT_ACCESSORIES_SUCCESS,
+  PRODUCT_ACCESSORIES_FAIL,
+  PRODUCT_ELECTRONICS_REQUEST,
+  PRODUCT_ELECTRONICS_SUCCESS,
+  PRODUCT_ELECTRONICS_FAIL,
 } from '../constants/productConstants'
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -46,7 +58,7 @@ export const productListReducer = (state = { products: [] }, action) => {
   }
 }                                                               
 
-                                                                        
+
 export const productDetailsReducer = (
   state = { product: { reviews: [] } },
   action
@@ -141,6 +153,58 @@ export const productAndroidReducer = (state = { products: [] }, action) => {
     case PRODUCT_ANDROID_SUCCESS:
       return { loading: false, products: action.payload }
     case PRODUCT_ANDROID_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const productIosReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_IOS_REQUEST:
+      return { loading: true, products: [] }
+    case PRODUCT_IOS_SUCCESS:
+      return { loading: false, products: action.payload }
+    case PRODUCT_IOS_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const productLaptopReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_LAPTOPS_REQUEST:
+      return { loading: true, products: [] }
+    case PRODUCT_LAPTOPS_SUCCESS:
+      return { loading: false, products: action.payload }
+    case PRODUCT_LAPTOPS_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const productAccessoriesReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_ACCESSORIES_REQUEST:
+      return { loading: true, products: [] }
+    case PRODUCT_ACCESSORIES_SUCCESS:
+      return { loading: false, products: action.payload }
+    case PRODUCT_ACCESSORIES_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const productElectronicsReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_ELECTRONICS_REQUEST:
+      return { loading: true, products: [] }
+    case PRODUCT_ELECTRONICS_SUCCESS:
+      return { loading: false, products: action.payload }
+    case PRODUCT_ELECTRONICS_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

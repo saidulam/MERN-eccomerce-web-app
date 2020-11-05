@@ -166,6 +166,44 @@ const getAndroid = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
+// @desc    Get IOS CATEGORIES
+// @route   GET /api/products/categories/ios
+// @access  Public
+const getIos = asyncHandler(async (req, res) => {
+  const products = await Product.find({"category": "IOS"})
+
+  res.json(products)
+})
+
+// @desc    Get IOS CATEGORIES
+// @route   GET /api/products/categories/laptops
+// @access  Public
+const getlaptops = asyncHandler(async (req, res) => {
+  const products = await Product.find({"category": "Laptops"})
+
+  res.json(products)
+})
+
+// @desc    Get IOS CATEGORIES
+// @route   GET /api/products/categories/laptops
+// @access  Public
+const getElectronics = asyncHandler(async (req, res) => {
+  const products = await Product.find({"category": "Electronics"})
+
+  res.json(products)
+})
+
+// @desc    Get IOS CATEGORIES
+// @route   GET /api/products/categories/laptops
+// @access  Public
+const getAccessories = asyncHandler(async (req, res) => {
+  const products = await Product.find({"category": "Accessories"})
+  res.json(products)
+})
+
+
+
+
 
 export {
   getProducts,
@@ -175,5 +213,9 @@ export {
   updateProduct,
   createProductReview,
   getTopProducts,
-  getAndroid
+  getAndroid,
+  getIos,
+  getlaptops,
+  getElectronics,
+  getAccessories,
 }
