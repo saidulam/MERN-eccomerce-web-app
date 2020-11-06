@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Footer() {
+    const date = new Date()
   return (
     <footer>
     <nav class="footernav">
@@ -33,7 +34,7 @@ function Footer() {
     </ul>
 
     <cite>
-        <span class="badge">Copyright &copy; Tech Prime</span>
+        <span class="badge">Copyright Tech Prime &copy; {date.getFullYear()} </span>
     </cite>
 </footer>
   )
