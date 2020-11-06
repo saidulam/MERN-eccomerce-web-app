@@ -6,6 +6,8 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import {contactUs} from '../actions/userActions'
+import Meta from '../components/Meta'
+
 
 
 const AndroidScreen = ({ match,history }) => {
@@ -42,6 +44,7 @@ const AndroidScreen = ({ match,history }) => {
       <Link to='/' className='btn btn-light'>
         Go Back
       </Link>
+      <Meta title = "Cantact Us"/>
       <FormContainer>
       <h1>Contact Us</h1>
       {message && <Message variant ="success">Message sent!! we will reply as earlier as possible...</Message>}
@@ -90,7 +93,7 @@ const AndroidScreen = ({ match,history }) => {
       <Row className='py-3'>
         <Col>
         <Button type='submit' href = 'https://wa.me/16084663720' variant='primary'>
-         Message us on Whatsapp <img src ="https://cdn2.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-whatsapp-circle-512.png" style={{width:"20px",height:"20px"}}/>
+         Message us on Whatsapp <img src ="https://cdn2.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-whatsapp-circle-512.png" alt ="whatsapp" style={{width:"20px",height:"20px"}}/>
       </Button>
         </Col>
       </Row>

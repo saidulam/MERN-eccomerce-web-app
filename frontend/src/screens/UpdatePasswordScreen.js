@@ -1,13 +1,14 @@
 /* eslint-disable no-console */
-import React, { useRef,useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import {USER_PASSWORD_PAGE_RESET} from "../constants/userConstants"
+import { Form, Button, } from 'react-bootstrap'
 import {userGetResetPageById,updateUserNewPassword, login} from '../actions/userActions'
+import Meta from '../components/Meta'
+
 
 
 
@@ -57,6 +58,8 @@ const ForgotPassword = ({match,history}) => {
    
   return (
       <div>
+      <Meta title = "Update Password"/>
+
       <Link className='btn btn-light my-3' to='/'>
         Go Back
       </Link>

@@ -1,17 +1,16 @@
 /* eslint-disable no-console */
-import React, { Component,useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {passwordReset} from '../actions/userActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Button, } from 'react-bootstrap'
 
 
 const ForgotPassword = () => {
   const  [email,setEmail] = useState('')
-  const  [showError,setShowError] = useState(false)
+  const  [showError] = useState(false)
   const  [showNullError,setShowNullError] = useState(false)
   const  [messageFromServer,setMessageFromServer] = useState('')
 
